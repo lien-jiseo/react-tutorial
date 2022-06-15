@@ -3,28 +3,39 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 
 class Square extends React.Component {
-  // 하위 클래스의 생성자(constructor)를 정의 할 떄 super를 호출해야함.
-  // 모든 React의 class conponent는 생성자를 가질 때 super(props) 호출 구문을 작성해야함 .
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: null,
-    };
-  }
-
   render() {
     return (
       // onClick={console.log('click')} 형식으로 작성할 경우 경고창이 뜰 수 있기 때문에 화살표 함수를 사용한 아래의 형식으로 작성.
-      <button className="square" onClick={() => this.setState({ value: "X" })}>
-        {this.state.value}
+      <button className="square" onClick={() => this.props.onClick()}>
+        {this.props.value}
       </button>
     );
   }
 }
 
 class Board extends React.Component {
+  // 하위 클래스의 생성자(constructor)를 정의 할 때 super를 호출해야함.
+  // 모든 React의 class conponent는 생성자를 가질 때 super(props) 호출 구문을 작성해야함 .
+  constructor(props) {
+    super(props);
+    this.state = {
+      squares: Array(9).fill(null),
+    };
+  }
+
+  handleClick(i) {
+    const squares = this.state.squares.slice();
+    squares[i] = "X";
+    this.setState({ squares: squares });
+  }
+
   renderSquare(i) {
-    return <Square value={i} />;
+    return (
+      <Square
+        value={this.state.squares[i]}
+        onClick={() => this.handleClick(i)}
+      />
+    );
   }
 
   render() {
