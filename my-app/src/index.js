@@ -15,8 +15,8 @@ class Square extends React.Component {
   render() {
     return (
       // onClick={console.log('click')} 형식으로 작성할 경우 경고창이 뜰 수 있기 때문에 화살표 함수를 사용한 아래의 형식으로 작성.
-      <button className="square" onClick={() => console.log("click")}>
-        {this.props.value}
+      <button className="square" onClick={() => this.setState({ value: "X" })}>
+        {this.state.value}
       </button>
     );
   }
