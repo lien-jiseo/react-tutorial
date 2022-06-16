@@ -13,14 +13,6 @@ function Square(props) {
 class Board extends React.Component {
   // 하위 클래스의 생성자(constructor)를 정의 할 때 super를 호출해야함.
   // 모든 React의 class conponent는 생성자를 가질 때 super(props) 호출 구문을 작성해야함 .
-  constructor(props) {
-    super(props);
-    this.state = {
-      squares: Array(9).fill(null),
-      xIsNext: true,
-    };
-  }
-
   handleClick(i) {
     const squares = this.state.squares.slice();
     if (calculateWinner(squares) || squares[i]) {
@@ -33,8 +25,8 @@ class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
-        value={this.state.squares[i]}
-        onClick={() => this.handleClick(i)}
+        value={this.props.squares[i]}
+        onClick={() => this.props.onClick(i)}
       />
     );
   }
